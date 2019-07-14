@@ -17,7 +17,7 @@ public class Cart {
     private Item item;
     private LocalDateTime orderDate;
     private BigDecimal price;
-    private BigDecimal discount;
+    private BigDecimal discount123;
     private int quantity;
     private BigDecimal sumPrice;
 
