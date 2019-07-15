@@ -5,18 +5,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.sda.storeforpets.model.enums.CategoryEnum;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-class Item {
+public class Item {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private BigDecimal price;
     private String name;
     private int warehouseQuantity;
     private BigDecimal discount;
+    @Enumerated
     private CategoryEnum category;
+    @ManyToOne(
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            fetch = FetchType.LAZY)
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 
 }
