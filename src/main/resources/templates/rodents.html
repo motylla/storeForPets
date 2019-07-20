@@ -34,9 +34,9 @@
         <div class="list-group list-group-flush">
             <a class="list-group-item list-group-item-action bg-light" th:href="@{/dogs}">Psy</a>
             <a class="list-group-item list-group-item-action bg-light" th:href="@{/cats}">Koty</a>
-            <a class="list-group-item list-group-item-action bg-light" th:href="@{/gady}">Gady</a>
-            <a class="list-group-item list-group-item-action bg-light" th:href="@{/plazy}">Płazy</a>
-            <a class="list-group-item list-group-item-action bg-light" th:href="@{/gryzonie}">Gryzonie</a>
+            <a class="list-group-item list-group-item-action bg-light" th:href="@{/reptiles}">Gady</a>
+            <a class="list-group-item list-group-item-action bg-light" th:href="@{/amphibians}">Płazy</a>
+            <a class="list-group-item list-group-item-action bg-light" th:href="@{/rodents}">Gryzonie</a>
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -52,7 +52,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home
+                        <a class="nav-link" th:href="@{/}">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
@@ -63,7 +63,7 @@
                         <a class="nav-link" href="#">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" th:href="@{/contact}">Kontakt</a>
                     </li>
                 </ul>
             </div>
@@ -76,13 +76,12 @@
 
         <!-- Jumbotron Header -->
         <header class="jumbotron my-4">
-            <h1 class="display-3">Gady</h1>
+            <h1 class="display-3">Gryzonie</h1>
             <p class="lead">U nas znajdziesz wszystko czego potrzebujesz dla swojego najlepszego czterołapkowego
                 przyjaciela. Oferujemy szeroki wybór pysznego jedzonka oraz przysmaków.</p>
         </header>
 
         <!-- Page Features -->
-
         <div class="row text-center">
 
             <div class="col-lg-3 col-md-6 mb-4" th:each="item: ${items}">

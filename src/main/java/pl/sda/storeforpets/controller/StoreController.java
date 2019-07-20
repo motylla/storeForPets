@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import pl.sda.storeforpets.model.Item;
 import pl.sda.storeforpets.model.enums.CategoryEnum;
 import pl.sda.storeforpets.service.ItemService;
@@ -43,25 +42,25 @@ public class StoreController {
         return "cats";
 
     }
-    @GetMapping("/plazy")
+    @GetMapping("/amphibians")
     public String showPlazy (Model model) {
         CategoryEnum category = Plazy;
         showItemsByCategory(model, category);
-        return "plazy";
+        return "amphibians";
 
     }
-    @GetMapping("/gady")
+    @GetMapping("/reptiles")
     public String showGady (Model model) {
         CategoryEnum category = Gady;
         showItemsByCategory(model, category);
-        return "gady";
+        return "reptiles";
 
     }
-    @GetMapping("/gryzonie")
+    @GetMapping("/rodents")
     public String showGryzonie (Model model) {
         CategoryEnum category = Gryzonie;
         showItemsByCategory(model, category);
-        return "gryzonie";
+        return "rodents";
 
     }
 

@@ -6,8 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.sda.storeforpets.model.ContactMe;
 import pl.sda.storeforpets.model.Item;
 import pl.sda.storeforpets.model.enums.CategoryEnum;
+import pl.sda.storeforpets.service.ContactMeService;
 import pl.sda.storeforpets.service.ItemService;
 
 import java.util.ArrayList;
@@ -17,10 +19,13 @@ import java.util.List;
 @Controller
 public class AdminController {
     ItemService itemService;
+    ContactMeService contactMeService;
 
 
-    @Autowired public AdminController(ItemService itemService) {
+    @Autowired
+    public AdminController(ItemService itemService, ContactMeService contactMeService) {
         this.itemService = itemService;
+        this.contactMeService = contactMeService;
     }
 
     @GetMapping("/admin")
@@ -38,9 +43,17 @@ public class AdminController {
     }
 
     @PostMapping("admin/addItem")
-        public String addItem(@ModelAttribute Item item){
+    public String addItem(@ModelAttribute Item item) {
         itemService.addItemToDatabase(item);
-            return "redirect:/admin";
+        return "redirect:/admin";
 
+    }
+
+    @GetMapping("/admin/readMessages")
+    public String readMessages(Model model) {
+        List<ContactMe> messages = contactMeService.showAllMessages();
+        model.addAttribute("messages", messages);
+
+        return "admin/tables";
     }
 }
