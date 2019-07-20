@@ -23,7 +23,7 @@ public class StoreController {
 
     @GetMapping("/")
     public String home(Model model){
-        List<Item> items = itemService.showAllItems();
+        List<Item> items = itemService.showItemsWithDiscount();
         model.addAttribute("items", items);
         return "index";
     }

@@ -20,10 +20,10 @@ public class Item {
     private CategoryEnum category;
     private String name;
     private String brand;
-    private BigDecimal price;
+    private double price;
     private String description;
     private int warehouseQuantity;
-    private BigDecimal discount;
+    private double discount;
 
     @ManyToOne(
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
