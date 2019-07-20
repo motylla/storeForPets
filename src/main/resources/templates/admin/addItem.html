@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=”http://www.thymeleaf.org”>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Dodaj przedmiot</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-dark">
+
+  <div class="container">
+    <div class="card card-register mx-auto mt-5">
+      <div class="card-header">Dodaj przedmiot</div>
+      <div class="card-body">
+        <form th:action="@{/admin/addItem}"
+              th:object="${item}"
+              th:method="post">
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <select class="form-control" type="text" th:field="*{category}">
+                    <option th:each="c : ${categories}"
+                            th:value="${c}"
+                            th:text="${c}">
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="Nazwa" required="required">
+                  <label for="name">Nazwa</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="text" th:field="*{brand}" id="brand" class="form-control" placeholder="Marka" required="required" autofocus="autofocus">
+                  <label for="brand">Marka</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="number" th:field="*{price}" id="price" class="form-control" placeholder="Cena" required="required">
+                  <label for="price">Cena</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-label-group">
+              <input type="text" th:field="*{description}" id="description" class="form-control" placeholder="Opis" required="required">
+              <label for="description">Opis</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="number" th:field="*{warehouseQuantity}" id="warehouseQuantity" class="form-control" placeholder="Ilość w magazynie" required="required">
+                  <label for="warehouseQuantity">Ilość w magazynie</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="number" th:field="*{discount}" id="discount" class="form-control" placeholder="Zniżka %">
+                  <label for="discount">Zniżka %</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a class="btn btn-primary btn-block">
+            <button type="submit"
+                    class="btn btn-primary"
+                    id="addItem">
+             Add Item
+            </button>
+          </a>
+        </form>
+        <div class="text-center">
+          <a class="d-block small mt-3" th:href="@{/admin}">Admin Page</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+</body>
+
+</html>

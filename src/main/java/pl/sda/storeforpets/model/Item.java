@@ -16,12 +16,15 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private BigDecimal price;
-    private String name;
-    private int warehouseQuantity;
-    private BigDecimal discount;
     @Enumerated
     private CategoryEnum category;
+    private String name;
+    private String brand;
+    private double price;
+    private String description;
+    private int warehouseQuantity;
+    private double discount;
+
     @ManyToOne(
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             fetch = FetchType.LAZY)
