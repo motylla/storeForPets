@@ -14,7 +14,7 @@ import javax.validation.Valid;
 @Controller
 public class ContactController {
 
-    ContactMeService contactMeService;
+    private ContactMeService contactMeService;
 
     @Autowired
     public ContactController(ContactMeService contactMeService) {

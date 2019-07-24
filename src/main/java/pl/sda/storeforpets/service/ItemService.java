@@ -5,13 +5,12 @@ import org.springframework.stereotype.Service;
 import pl.sda.storeforpets.model.Item;
 import pl.sda.storeforpets.repository.ItemRepository;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class ItemService {
-    ItemRepository itemRepository;
+    private ItemRepository itemRepository;
 
     @Autowired
     public ItemService(ItemRepository itemRepository) {
@@ -34,6 +33,10 @@ public class ItemService {
     public List<Item> showItemsWithDiscount() {
 
         return itemRepository.findAllByDiscountGreaterThan(0);
+    }
+
+    public Item showItemById(long itemId) {
+        return itemRepository.getOne(itemId);
     }
 
 }

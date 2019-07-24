@@ -30,8 +30,8 @@
 
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
-        <div class="sidebar-heading">Wybierz kategorię </div>
-        <div class="list-group list-group-flush" >
+        <div class="sidebar-heading">Wybierz kategorię</div>
+        <div class="list-group list-group-flush">
             <a class="list-group-item list-group-item-action bg-light" th:href="@{/dogs}">Psy</a>
             <a class="list-group-item list-group-item-action bg-light" th:href="@{/cats}">Koty</a>
             <a class="list-group-item list-group-item-action bg-light" th:href="@{/reptiles}">Gady</a>
@@ -45,13 +45,14 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">Store for Pets</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/}">Home
+                        <a class="nav-link" th:href="@{/}">Strona główna
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
@@ -63,6 +64,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/contact}">Kontakt</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/cart}">Koszyk</a>
                     </li>
                 </ul>
             </div>
@@ -76,38 +80,40 @@
         <!-- Jumbotron Header -->
         <header class="jumbotron my-4">
             <h1 class="display-3">Witamy w naszym sklepie!</h1>
-            <p class="lead">U nas znajdziesz wszystko czego potrzebujesz dla swojego najlepszego czterołapkowego przyjaciela. Oferujemy szeroki wybór pysznego jedzonka oraz przysmaków.</p>
+            <p class="lead">U nas znajdziesz wszystko czego potrzebujesz dla swojego najlepszego czterołapkowego
+                przyjaciela. Oferujemy szeroki wybór pysznego jedzonka oraz przysmaków.</p>
         </header>
 
         <!-- Page Features -->
         <div class="row text-center">
-
             <div class="col-lg-3 col-md-6 mb-4" th:each="item: ${items}">
-                <div class="card h-100">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title" th:text="${item.getName()}">Name</h4>
-                        <h5 class="card-brand" th:text="${item.getBrand()}">Brand</h5>
-                        <p class="card-text" th:text="${item.getDescription()}">Description</p>
-                        <h6 class="card-price" th:text="'Cena przed promocją: ' + ${item.getPrice()} + ' zł'">Price</h6>
-                        <h6 class="card-price" th:action="${item.setPrice((item.getPrice()*(100 - item.getDiscount()))/100)}" th:text="'Aktualna cena: ' + ${item.getPrice()} + ' zł'">Price</h6>
+                <form th:action="@{'/addItem/' + ${item.getId()}}"
+                      th:object="${cart}"
+                      th:method="post">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title" th:text="${item.getName()}">Name</h4>
+                            <h5 class="card-brand" th:text="${item.getBrand()}">Brand</h5>
+                            <p class="card-text" th:text="${item.getDescription()}">Description</p>
+                            <h6 class="card-price" th:text="'Cena przed promocją: ' + ${item.getPrice()} + ' zł'">
+                                Price</h6>
+                            <h6 class="card-price"
+                                th:action="${item.setPrice((item.getPrice()*(100 - item.getDiscount()))/100)}"
+                                th:text="'Cena promocyjna: ' + ${item.getPrice()} + ' zł'">Price</h6>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Dodaj do koszyka
+                            </button>
+                        </div>
                     </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Dodaj do koszyka</a>
-                    </div>
-                </div>
+                </form>
             </div>
-
         </div>
         <!-- /.row -->
-
     </div>
     <!-- /.container -->
-
-
-
 </div>
-
 <!-- /#wrapper -->
 <!-- Footer -->
 <footer class="py-5 bg-dark">
@@ -115,7 +121,6 @@
         <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
     </div>
 </footer>
-
 <!-- Bootstrap core JavaScript -->
 <script src="sidebar/vendor/jquery/jquery.min.js"></script>
 <script src="sidebar/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -125,7 +130,7 @@
 
 <!-- Menu Toggle Script -->
 <script>
-    $("#menu-toggle").click(function(e) {
+    $("#menu-toggle").click(function (e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });

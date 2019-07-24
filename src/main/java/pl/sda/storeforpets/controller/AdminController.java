@@ -18,8 +18,8 @@ import java.util.List;
 
 @Controller
 public class AdminController {
-    ItemService itemService;
-    ContactMeService contactMeService;
+    private ItemService itemService;
+    private ContactMeService contactMeService;
 
 
     @Autowired

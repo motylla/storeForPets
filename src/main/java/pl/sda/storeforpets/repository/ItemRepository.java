@@ -12,4 +12,5 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Long > {
 
     List<Item> findAllByDiscountGreaterThan(double discount);
+    Item findItemById(Long id);
 }

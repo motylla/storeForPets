@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public class ContactMeService {
-    ContactMeRepository contactMeRepository;
+    private ContactMeRepository contactMeRepository;
 
     @Autowired
     public ContactMeService(ContactMeRepository contactMeRepository) {
