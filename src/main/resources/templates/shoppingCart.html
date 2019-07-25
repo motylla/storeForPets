@@ -88,74 +88,68 @@
             <div class="clearfix"></div>
         </div>
         <div class="card-body">
-                <!-- PRODUCT -->
+            <!-- PRODUCT -->
 
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-2 text-center">
-                        <img class="img-responsive" src="http://placehold.it/120x80" alt="prewiew" width="120"
-                             height="80">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-2 text-center">
+                    <img class="img-responsive" src="http://placehold.it/120x80" alt="prewiew" width="120"
+                         height="80">
+                </div>
+                <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
+                    <h4 class="product-name" th:text="${cart.item.getName()}"><strong>Item
+                        Name</strong></h4>
+                    <h6 class="product-name" th:text="${cart.item.getBrand()}"><strong>Item
+                        Brand</strong></h6>
+                    <h5 th:text="${cart.item.getDescription()}">
+                        <small>Item description</small>
+                    </h5>
+                </div>
+                <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
+                    <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
+                        <h6 th:if="${cart.item.getDiscount() == 0}"
+                            th:text="'Cena: ' + ${cart.item.getPrice() + ' zł'}">Item Price<span
+                                class="text-muted">x</span></h6>
+                        <h6 th:if="${cart.item.getDiscount() != 0}"
+                            th:action="${cart.item.setPrice((cart.item.getPrice()*(100 - cart.item.getDiscount()))/100)}"
+                            th:text="'Cena: ' + ${cart.item.getPrice()} + ' zł'">Item Discount Price<span
+                                class="text-muted">x</span></h6>
                     </div>
-                    <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
-                        <h4 class="product-name"><strong>Item
-                            Name</strong></h4>
-                        <h6 class="product-name"><strong>Item
-                            Brand</strong></h6>
-                        <h5>
-                            <small>Item description</small>
-                        </h5>
+                    <div class="col-4 col-sm-4 col-md-4">
+                        <div class="quantity">
+                            <h6 th:text="'Ilość: ' + ${cart.getStock()}"></h6>
+                        </div>
+                        <div>
+                            <form th:action="@{'/incrementItem/' + ${cart.getId()}}" th:method="put">
+                                <input class="btn btn-primary float-right" type="submit" value="+">
+                            </form>
+                            <form th:action="@{'/decrementItem/' + ${cart.getId()}}" th:method="put">
+                                <input class="btn btn-primary float-right" type="submit" value="-">
+                            </form>
+                        </div>
                     </div>
-                    <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
-                        <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
-                            <h6>Item Price<span
-                                    class="text-muted">x</span></h6>
-<!--                            <h6 th:action="${item.setPrice((item.getPrice()*(100 - item.getDiscount()))/100)}"-->
-<!--                                th:text="'Cena promocyjna: ' + ${item.getPrice()} + ' zł'"><strong>Item Discount-->
-<!--                                Price<span class="text-muted">x</span></strong></h6>-->
-<!--                            -->
-<!--                            -->
-                            <h6><strong>Item Discount
-                                Price<span class="text-muted">x</span></strong></h6>
-                        </div>
-                        <div class="col-4 col-sm-4 col-md-4">
-                            <div class="quantity">
-                                <input type="button" value="+" class="plus">
-                                <input type="number" step="1" max="99" min="1" value="1" title="Qty" class="qty"
-                                       size="4">
-                                <input type="button" value="-" class="minus">
-                            </div>
-                        </div>
-                        <div class="col-2 col-sm-2 col-md-2 text-right">
-                            <button type="button" class="btn btn-outline-danger btn-xs">
+                    <div class="col-2 col-sm-2 col-md-2 text-right">
+                        <form th:action="@{'/deleteCart/' + ${cart.getId()}}" th:method="delete">
+                            <button type="submit" class="btn btn-outline-danger btn-xs" value="delete">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
-                        </div>
+                        </form>
                     </div>
                 </div>
-                <div class="form-group">
-                </div>
-                <hr>
-                <!-- END PRODUCT -->
-                <div class="pull-right">
-                    <a href="" class="btn btn-outline-secondary pull-right">
-                        Update shopping cart
-                    </a>
-                </div>
+            </div>
+            <div class="form-group">
+            </div>
+            <!-- END PRODUCT -->
         </div>
         <div class="card-footer">
             <div class="coupon col-md-5 col-sm-5 no-padding-left pull-left">
                 <div class="row">
-                    <div class="col-6">
-                        <input type="text" class="form-control" placeholder="cupone code">
-                    </div>
-                    <div class="col-6">
-                        <input type="submit" class="btn btn-default" value="Use cupone">
-                    </div>
+
                 </div>
             </div>
             <div class="pull-right" style="margin: 10px">
                 <a href="" class="btn btn-success pull-right">Checkout</a>
                 <div class="pull-right" style="margin: 5px">
-                    Total price: <b>50.00€</b>
+                    <b><h5 th:text="'Cena razem: ' + ${cart.getAmount()} + 'zł'"></h5></b>
                 </div>
             </div>
         </div>

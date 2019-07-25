@@ -3,10 +3,7 @@ package pl.sda.storeforpets.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.sda.storeforpets.model.Cart;
 import pl.sda.storeforpets.model.Item;
 import pl.sda.storeforpets.model.enums.CategoryEnum;
@@ -34,9 +31,7 @@ public class StoreController {
         model.addAttribute("items", items);
         Cart cart = new Cart();
         model.addAttribute("cart", cart);
-
-        model.addAttribute("cartWithItem", cartService.getCartById(cart.getId()));
-
+        model.addAttribute("lastCart", cartService.getLastCart(cart));
         return "index";
     }
 
@@ -44,40 +39,45 @@ public class StoreController {
     public String showDogs(Model model) {
         CategoryEnum category = Psy;
         showItemsByCategory(model, category);
+        Cart cart = new Cart();
+        model.addAttribute("lastCart", cartService.getLastCart(cart));
         return "dogs";
-
     }
 
     @GetMapping("/cats")
     public String showCats(Model model) {
         CategoryEnum category = Koty;
         showItemsByCategory(model, category);
+        Cart cart = new Cart();
+        model.addAttribute("lastCart", cartService.getLastCart(cart));
         return "cats";
-
     }
 
     @GetMapping("/amphibians")
     public String showPlazy(Model model) {
         CategoryEnum category = Plazy;
         showItemsByCategory(model, category);
+        Cart cart = new Cart();
+        model.addAttribute("lastCart", cartService.getLastCart(cart));
         return "amphibians";
-
     }
 
     @GetMapping("/reptiles")
     public String showGady(Model model) {
         CategoryEnum category = Gady;
         showItemsByCategory(model, category);
+        Cart cart = new Cart();
+        model.addAttribute("lastCart", cartService.getLastCart(cart));
         return "reptiles";
-
     }
 
     @GetMapping("/rodents")
     public String showGryzonie(Model model) {
         CategoryEnum category = Gryzonie;
         showItemsByCategory(model, category);
+        Cart cart = new Cart();
+        model.addAttribute("lastCart", cartService.getLastCart(cart));
         return "rodents";
-
     }
 
     public void showItemsByCategory(Model model, CategoryEnum category) {
@@ -85,15 +85,40 @@ public class StoreController {
         model.addAttribute("items", itemsByCategory);
     }
 
-    @GetMapping("/cart")
-    public String shoppingCart(Model model){
+    @GetMapping("/cart/{cartId}")
+    public String shoppingCart(Model model, @PathVariable long cartId) {
+        Cart cart = cartService.getCartById(cartId);
+        model.addAttribute("cart", cart);
         return "shoppingCart";
     }
+
     @PostMapping("/addItem/{itemId}")
     public String addItem(@PathVariable long itemId, @ModelAttribute Cart cart) {
         Item item = itemService.showItemById(itemId);
         cartService.saveItem(cart, item);
         return "redirect:/";
+    }
+
+    @DeleteMapping("/deleteCart/{cartId}")
+    public String deleteCart(@PathVariable long cartId) {
+        Cart cart = cartService.getCartById(cartId);
+        System.out.println(cart.getId());
+        cartService.deleteCart(cart);
+        return "redirect:/";
+    }
+
+    @PutMapping("/incrementItem/{cartId}")
+    public String incrementItem(@PathVariable long cartId) {
+        Cart cart = cartService.getCartById(cartId);
+        cartService.incrementItem(cart);
+        return "redirect:/cart/" + cartId;
+    }
+
+    @PutMapping("/decrementItem/{cartId}")
+    public String decrementItem(@PathVariable long cartId) {
+        Cart cart = cartService.getCartById(cartId);
+        cartService.decrementItem(cart);
+        return "redirect:/cart/" + cartId;
     }
 
 

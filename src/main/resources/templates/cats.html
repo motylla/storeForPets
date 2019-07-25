@@ -65,6 +65,9 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/contact}">Kontakt</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{'/cart/' + ${lastCart.getId()}}">Koszyk</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -83,22 +86,31 @@
 
         <!-- Page Features -->
         <div class="row text-center">
-
             <div class="col-lg-3 col-md-6 mb-4" th:each="item: ${items}">
-                <div class="card h-100">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title" th:text="${item.getName()}">Name</h4>
-                        <h5 class="card-brand" th:text="${item.getBrand()}">Brand</h5>
-                        <p class="card-text" th:text="${item.getDescription()}">Description</p>
-                        <h6 class="card-price" th:text="'cena: ' + ${item.getPrice()} + ' zł'">Price</h6>
+                <form th:action="@{'/addItem/' + ${item.getId()}}"
+                      th:object="${cart}"
+                      th:method="post">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title" th:text="${item.getName()}">Name</h4>
+                            <h5 class="card-brand" th:text="${item.getBrand()}">Brand</h5>
+                            <p class="card-text" th:text="${item.getDescription()}">Description</p>
+                            <p>
+                            <h6 class="card-price" th:text="'Cena przed promocją: ' + ${item.getPrice()} + ' zł'">
+                                Price</h6>
+                            <h6 class="card-price"
+                                th:action="${item.setPrice((item.getPrice()*(100 - item.getDiscount()))/100)}"
+                                th:text="'Cena promocyjna: ' + ${item.getPrice()} + ' zł'">Price</h6>
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Dodaj do koszyka
+                            </button>
+                        </div>
                     </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Dodaj do koszyka</a>
-                    </div>
-                </div>
+                </form>
             </div>
-
         </div>
         <!-- /.row -->
 

@@ -20,20 +20,8 @@ public class Cart implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-
-    //    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "cart")
-//    List<Item> items = new ArrayList<>();
-//    private LocalDateTime orderDate = LocalDateTime.now();
-//    private int quantity;
-//
-//
-//    public Cart(List<Item> items, int quantity) {
-//        this.items = items;
-//        this.quantity = quantity;
-//
-//    }
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     public Item item;
     @NotNull
