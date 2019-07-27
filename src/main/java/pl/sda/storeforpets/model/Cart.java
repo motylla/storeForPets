@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,16 +16,16 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cart {
+public class Cart implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "cart")
-    List<Item> items = new ArrayList<>();
-    private LocalDateTime orderDate;
-    private BigDecimal price;
-    private BigDecimal discount;
-    private int quantity;
-    private BigDecimal sumPrice;
-
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id")
+    public Item item;
+    @NotNull
+    private int stock;
+    private double amount;
+    private LocalDateTime orderDate = LocalDateTime.now();
 }
